@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FAF8F3;
+    --sage-deep:#3F5647;
+    --sage-mid:#6B8770;
+    --sage-pale:#E4EAE1;
+    --ink:#2A2723;
+    --ink-soft:#6B655C;
+    --plum:#7C4759;
+    --plum-soft:#F1E6EA;
+    --gold:#C79A3C;
+    --line:#DED7C7;
+    --white:#FFFFFF;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sage-pale);
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:32px 16px 60px;
+    line-height:1.5;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .card{
+    width:100%;
+    max-width:440px;
+    background:var(--ivory);
+    border-radius:14px;
+    border:1px solid var(--line);
+    padding:36px 28px 30px;
+  }
+
+  .brand{
+    text-align:center;
+    margin-bottom:26px;
+  }
+  .brand-name{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--sage-mid);
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:26px;
+    line-height:1.25;
+    margin:8px 0 6px;
+    color:var(--ink);
+    text-align:center;
+  }
+  .sub{
+    text-align:center;
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0 0 26px;
+  }
+
+  /* Stars */
+  .stars{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:6px;
+  }
+  .star-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:4px;
+    line-height:0;
+  }
+  .star-btn svg{
+    width:42px;
+    height:42px;
+    transition:transform 0.15s ease;
+  }
+  .star-btn:hover svg{ transform:scale(1.08); }
+  .star-btn:focus-visible{ outline:2px solid var(--plum); outline-offset:3px; border-radius:6px; }
+  .star-btn svg path{
+    fill:var(--white);
+    stroke:var(--line);
+    stroke-width:1.5;
+    transition:fill 0.15s ease, stroke 0.15s ease;
+  }
+  .star-btn.filled svg path{
+    fill:var(--gold);
+    stroke:var(--gold);
+  }
+  .rating-label{
+    text-align:center;
+    font-size:13px;
+    color:var(--ink-soft);
+    min-height:18px;
+    margin-bottom:22px;
+  }
+
+  /* Option groups */
+  .group{
+    display:none;
+    margin-bottom:22px;
+  }
+  .group.visible{ display:block; }
+  .group-title{
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .group-title .opt{
+    font-weight:400;
+    color:var(--ink-soft);
+    font-size:12.5px;
+  }
+  .chips{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .chip{
+    text-align:left;
+    background:var(--white);
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-family:inherit;
+    font-size:14.5px;
+    padding:12px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .chip:hover{ border-color:var(--sage-mid); }
+  .chip:focus-visible{ outline:2px solid var(--plum); outline-offset:2px; }
+  .chip[aria-checked="true"]{
+    background:var(--plum-soft);
+    border-color:var(--plum);
+    color:var(--plum);
+    font-weight:500;
+  }
+
+  /* Contact fields */
+  .fields{
+    display:none;
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    margin-top:4px;
+  }
+  .fields.visible{ display:block; }
+  .field{ margin-bottom:14px; }
+  label{
+    display:block;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  input[type="text"], input[type="tel"]{
+    width:100%;
+    font-family:inherit;
+    font-size:15px;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+    color:var(--ink);
+  }
+  input:focus{
+    outline:none;
+    border-color:var(--sage-mid);
+    box-shadow:0 0 0 3px var(--sage-pale);
+  }
+
+  .autofill-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:none;
+    border:none;
+    color:var(--sage-deep);
+    font-family:inherit;
+    font-size:13px;
+    font-weight:500;
+    padding:0 0 16px;
+    cursor:pointer;
+  }
+  .autofill-btn svg{ width:15px; height:15px; }
+  .autofill-btn.hidden{ display:none; }
+
+  .submit-btn{
+    width:100%;
+    background:var(--sage-deep);
+    color:var(--white);
+    font-family:inherit;
+    font-size:15.5px;
+    font-weight:500;
+    border:none;
+    border-radius:9px;
+    padding:14px;
+    cursor:pointer;
+    transition:background 0.15s ease, opacity 0.15s ease;
+  }
+  .submit-btn:disabled{
+    background:var(--ink-soft);
+    opacity:0.4;
+    cursor:not-allowed;
+  }
+  .submit-btn:not(:disabled):hover{ background:var(--sage-mid); }
+
+  .error{
+    font-size:13px;
+    color:var(--plum);
+    margin-top:-8px;
+    margin-bottom:14px;
+    display:none;
+  }
+  .error.visible{ display:block; }
+
+  /* Thank you state */
+  .thanks{
+    display:none;
+    text-align:center;
+    padding:20px 0 6px;
+  }
+  .thanks.visible{ display:block; }
+  .thanks svg{ width:48px; height:48px; margin-bottom:14px; }
+  .thanks h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:22px;
+    margin:0 0 8px;
+  }
+  .thanks p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0 0 22px;
+  }
+  .again-btn{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-family:inherit;
+    font-size:13.5px;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+
+  .form-body{ display:block; }
+  .form-body.hidden{ display:none; }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="form-body" id="formBody">
+    <div class="brand">
+      <div class="brand-name" id="brandName">Your Salon Name</div>
+    </div>
+    <h1>How was your visit today?</h1>
+    <p class="sub">Tap a star to get started — it takes 20 seconds.</p>
+
+    <div class="stars" id="starRow" role="radiogroup" aria-label="Rate your visit from 1 to 5 stars">
+      <!-- star buttons injected by JS -->
+    </div>
+    <div class="rating-label" id="ratingLabel">&nbsp;</div>
+
+    <!-- Ratings 1-2: single "not working" group -->
+    <div class="group" id="groupNotWorking">
+      <div class="group-title">What didn't work for you?</div>
+      <div class="chips" id="chipsNotWorking" role="radiogroup"></div>
+    </div>
+
+    <!-- Ratings 3-5: liked group -->
+    <div class="group" id="groupLiked">
+      <div class="group-title">What did you enjoy?</div>
+      <div class="chips" id="chipsLiked" role="radiogroup"></div>
+    </div>
+
+    <!-- Ratings 3-5: improve group -->
+    <div class="group" id="groupImprove">
+      <div class="group-title">Anything we could improve? <span class="opt">(optional)</span></div>
+      <div class="chips" id="chipsImprove" role="radiogroup"></div>
+    </div>
+
+    <div class="fields" id="contactFields">
+      <button type="button" class="autofill-btn hidden" id="autofillBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Fill from my contact card
+      </button>
+      <div class="field">
+        <label for="nameInput">Your name</label>
+        <input type="text" id="nameInput" autocomplete="name" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label for="phoneInput">Phone number</label>
+        <input type="tel" id="phoneInput" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile number">
+      </div>
+      <div class="error" id="errorMsg">Please fill in your name, phone number, and the option above.</div>
+      <button type="button" class="submit-btn" id="submitBtn" disabled>Submit feedback</button>
+    </div>
+  </div>
+
+  <div class="thanks" id="thanksScreen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#3F5647" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+    <h2>Thank you!</h2>
+    <p>Your feedback has been recorded. We really appreciate you taking the time.</p>
+    <button type="button" class="again-btn" id="againBtn">Leave another response</button>
+  </div>
+
+</div>
+
+<script>
+/* =========================================================
+   CONFIG — edit everything in this block to customize.
+   No other part of the file needs to change for basic setup.
+   ========================================================= */
+const CONFIG = {
+  businessName: "Your Salon Name",
+
+  // Paste your Google Apps Script Web App URL here after setup
+  // (see the setup steps provided alongside this file).
+  webAppUrl: "https://script.google.com/macros/s/AKfycbzpy2iz0YH-XLBUPUQQ_trh2VV7YnFHFarcKoHr6Mzek_YZNtG34A0px3Bx4Kdou7Of/exec",
+
+  // Shown for 1 and 2 star ratings. Pick exactly one.
+  notWorkingOptions: [
+    "Long wait time",
+    "Staff behavior or attitude",
+    "Cleanliness or hygiene",
+    "Service didn't meet expectations",
+    "Pricing / value for money"
+  ],
+
+  // Shown for 3, 4 and 5 star ratings. Pick exactly one.
+  likedOptions: [
+    "Friendly, professional staff",
+    "Skilled service, great results",
+    "Clean and relaxing ambience",
+    "On-time appointment",
+    "Good value for the price"
+  ],
+
+  // Shown for 3, 4 and 5 star ratings. Optional.
+  improveOptions: [
+    "Wait time",
+    "Staff attentiveness",
+    "Cleanliness",
+    "Service outcome",
+    "Pricing"
+  ]
+};
+/* ========================================================= */
+
+document.getElementById('brandName').textContent = CONFIG.businessName;
+
+const state = { rating: 0, notWorking: null, liked: null, improve: null };
+
+// --- Build star buttons ---
+const starRow = document.getElementById('starRow');
+const starIcon = () => `<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.7-5.1 4.6 1.5 6.7L12 17.6 5.9 20.7l1.5-6.7-5.1-4.6 6.8-.7z"/></svg>`;
+for(let i=1;i<=5;i++){
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'star-btn';
+  btn.setAttribute('role','radio');
+  btn.setAttribute('aria-checked','false');
+  btn.setAttribute('aria-label', i + ' star' + (i>1?'s':''));
+  btn.dataset.value = i;
+  btn.innerHTML = starIcon();
+  btn.addEventListener('click', () => setRating(i));
+  starRow.appendChild(btn);
+}
+
+const ratingLabels = {1:"Not great — sorry to hear that", 2:"Below expectations", 3:"It was okay", 4:"Good visit", 5:"Loved it!"};
+
+function setRating(n){
+  state.rating = n;
+  state.notWorking = null; state.liked = null; state.improve = null;
+
+  [...starRow.children].forEach((b,idx)=>{
+    const filled = idx < n;
+    b.classList.toggle('filled', filled);
+    b.setAttribute('aria-checked', idx===n-1 ? 'true':'false');
+  });
+  document.getElementById('ratingLabel').textContent = ratingLabels[n];
+
+  const showNotWorking = n <= 2;
+  document.getElementById('groupNotWorking').classList.toggle('visible', showNotWorking);
+  document.getElementById('groupLiked').classList.toggle('visible', !showNotWorking);
+  document.getElementById('groupImprove').classList.toggle('visible', !showNotWorking);
+
+  if(showNotWorking){
+    renderChips('chipsNotWorking', CONFIG.notWorkingOptions, 'notWorking');
+  } else {
+    renderChips('chipsLiked', CONFIG.likedOptions, 'liked');
+    renderChips('chipsImprove', CONFIG.improveOptions, 'improve');
+  }
+
+  document.getElementById('contactFields').classList.add('visible');
+  document.getElementById('errorMsg').classList.remove('visible');
+  validate();
+}
+
+function renderChips(containerId, options, stateKey){
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  options.forEach(opt=>{
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.setAttribute('role','radio');
+    chip.setAttribute('aria-checked','false');
+    chip.textContent = opt;
+    chip.addEventListener('click', ()=>{
+      state[stateKey] = opt;
+      [...el.children].forEach(c=>c.setAttribute('aria-checked', c===chip ? 'true':'false'));
+      validate();
+    });
+    el.appendChild(chip);
+  });
+}
+
+// --- Contact fields ---
+const nameInput = document.getElementById('nameInput');
+const phoneInput = document.getElementById('phoneInput');
+nameInput.addEventListener('input', validate);
+phoneInput.addEventListener('input', validate);
+
+function validate(){
+  const submitBtn = document.getElementById('submitBtn');
+  const needsSelection = state.rating <= 2 ? !!state.notWorking : !!state.liked;
+  const ok = state.rating > 0 && needsSelection && nameInput.value.trim().length>1 && phoneInput.value.trim().replace(/\D/g,'').length>=7;
+  submitBtn.disabled = !ok;
+}
+
+// --- Contact Picker autofill (Android Chrome only; feature-detected) ---
+const autofillBtn = document.getElementById('autofillBtn');
+if('contacts' in navigator && 'ContactsManager' in window){
+  autofillBtn.classList.remove('hidden');
+  autofillBtn.addEventListener('click', async ()=>{
+    try{
+      const contacts = await navigator.contacts.select(['name','tel'], {multiple:false});
+      if(contacts && contacts[0]){
+        if(contacts[0].name && contacts[0].name[0]) nameInput.value = contacts[0].name[0];
+        if(contacts[0].tel && contacts[0].tel[0]) phoneInput.value = contacts[0].tel[0];
+        validate();
+      }
+    }catch(err){ /* user cancelled or denied — no action needed */ }
+  });
+}
+
+// --- Submit ---
+document.getElementById('submitBtn').addEventListener('click', async ()=>{
+  const payload = {
+    timestamp: new Date().toISOString(),
+    name: nameInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    rating: state.rating,
+    notWorking: state.notWorking || '',
+    liked: state.liked || '',
+    improve: state.improve || ''
+  };
+
+  if(CONFIG.webAppUrl.includes('PASTE_YOUR')){
+    document.getElementById('errorMsg').textContent = 'Setup incomplete: add your Google Apps Script URL in CONFIG.webAppUrl.';
+    document.getElementById('errorMsg').classList.add('visible');
+    return;
+  }
+
+  try{
+    await fetch(CONFIG.webAppUrl, {
+      method:'POST',
+      mode:'no-cors', // Apps Script doesn't return readable CORS headers; this still delivers the request
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify(payload)
+    });
+  }catch(err){
+    // no-cors fetch to a live Apps Script URL essentially never rejects on delivery,
+    // but we still show the thank-you screen either way to avoid blocking the user
+  }
+
+  document.getElementById('formBody').classList.add('hidden');
+  document.getElementById('thanksScreen').classList.add('visible');
+});
+
+document.getElementById('againBtn').addEventListener('click', ()=>{
+  state.rating = 0; state.notWorking=null; state.liked=null; state.improve=null;
+  nameInput.value=''; phoneInput.value='';
+  [...starRow.children].forEach(b=>{b.classList.remove('filled'); b.setAttribute('aria-checked','false');});
+  document.getElementById('ratingLabel').textContent = '\u00A0';
+  document.getElementById('groupNotWorking').classList.remove('visible');
+  document.getElementById('groupLiked').classList.remove('visible');
+  document.getElementById('groupImprove').classList.remove('visible');
+  document.getElementById('contactFields').classList.remove('visible');
+  document.getElementById('errorMsg').classList.remove('visible');
+  document.getElementById('thanksScreen').classList.remove('visible');
+  document.getElementById('formBody').classList.remove('hidden');
+});
+</script>
+</body>
+</html>
