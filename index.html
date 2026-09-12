@@ -3,36 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feedback</title>
+<title>Feedback — Silicon City Pet Hospital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ivory:#FAF8F3;
-    --sage-deep:#3F5647;
-    --sage-mid:#6B8770;
-    --sage-pale:#E4EAE1;
+    --ivory:#FFFBF4;
+    --teal-deep:#1F5C56;
+    --teal-mid:#3D8C82;
+    --teal-pale:#E4F0ED;
     --ink:#2A2723;
     --ink-soft:#6B655C;
-    --plum:#7C4759;
-    --plum-soft:#F1E6EA;
-    --gold:#C79A3C;
-    --line:#DED7C7;
+    --coral:#E2694A;
+    --coral-soft:#FBE9E3;
+    --gold:#D9A441;
+    --line:#E5DECD;
     --white:#FFFFFF;
   }
 
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--sage-pale);
+    background:
+      radial-gradient(circle at 15% 8%, rgba(61,140,130,0.14), transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(226,105,74,0.10), transparent 45%),
+      var(--teal-pale);
     font-family:'Work Sans', sans-serif;
     color:var(--ink);
     min-height:100vh;
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    padding:32px 16px 60px;
+    padding:24px 14px 60px;
     line-height:1.5;
   }
 
@@ -44,26 +47,103 @@
     width:100%;
     max-width:440px;
     background:var(--ivory);
-    border-radius:14px;
+    border-radius:20px;
     border:1px solid var(--line);
-    padding:36px 28px 30px;
+    overflow:hidden;
+    box-shadow:0 18px 40px -18px rgba(31,92,86,0.35), 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  /* --- Banner + logo --- */
+  .banner-wrap{
+    position:relative;
+    background:var(--teal-deep);
+  }
+  .banner-img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    display:block;
+    opacity:0.92;
+  }
+  .banner-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(31,92,86,0.05) 0%, rgba(31,92,86,0.55) 100%);
+  }
+  .logo-badge{
+    position:absolute;
+    left:50%;
+    bottom:-34px;
+    transform:translateX(-50%);
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:var(--white);
+    border:4px solid var(--ivory);
+    box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .logo-badge img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .emergency-pill{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:rgba(255,255,255,0.92);
+    color:var(--teal-deep);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    padding:5px 10px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .emergency-pill .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#3FAE6B;
+    box-shadow:0 0 0 0 rgba(63,174,107,0.6);
+    animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(63,174,107,0.55);}
+    70%{box-shadow:0 0 0 6px rgba(63,174,107,0);}
+    100%{box-shadow:0 0 0 0 rgba(63,174,107,0);}
+  }
+
+  .content{
+    padding:46px 26px 30px;
   }
 
   .brand{
     text-align:center;
-    margin-bottom:26px;
+    margin-bottom:20px;
   }
   .brand-name{
     font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:15px;
-    letter-spacing:0.02em;
-    color:var(--sage-mid);
+    font-weight:600;
+    font-size:17px;
+    letter-spacing:0.01em;
+    color:var(--teal-deep);
+  }
+  .brand-tag{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    margin-top:2px;
   }
   h1{
     font-family:'Fraunces', serif;
     font-weight:500;
-    font-size:26px;
+    font-size:24px;
     line-height:1.25;
     margin:8px 0 6px;
     color:var(--ink);
@@ -73,8 +153,9 @@
     text-align:center;
     font-size:14px;
     color:var(--ink-soft);
-    margin:0 0 26px;
+    margin:0 0 24px;
   }
+  .sub .paw{ font-size:13px; }
 
   /* Stars */
   .stars{
@@ -91,12 +172,12 @@
     line-height:0;
   }
   .star-btn svg{
-    width:42px;
-    height:42px;
+    width:40px;
+    height:40px;
     transition:transform 0.15s ease;
   }
-  .star-btn:hover svg{ transform:scale(1.08); }
-  .star-btn:focus-visible{ outline:2px solid var(--plum); outline-offset:3px; border-radius:6px; }
+  .star-btn:hover svg{ transform:scale(1.1) rotate(-4deg); }
+  .star-btn:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:6px; }
   .star-btn svg path{
     fill:var(--white);
     stroke:var(--line);
@@ -109,8 +190,9 @@
   }
   .rating-label{
     text-align:center;
-    font-size:13px;
-    color:var(--ink-soft);
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--teal-deep);
     min-height:18px;
     margin-bottom:22px;
   }
@@ -145,17 +227,17 @@
     font-family:inherit;
     font-size:14.5px;
     padding:12px 14px;
-    border-radius:9px;
+    border-radius:10px;
     cursor:pointer;
-    transition:border-color 0.15s ease, background 0.15s ease;
+    transition:border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
   }
-  .chip:hover{ border-color:var(--sage-mid); }
-  .chip:focus-visible{ outline:2px solid var(--plum); outline-offset:2px; }
+  .chip:hover{ border-color:var(--teal-mid); transform:translateY(-1px); }
+  .chip:focus-visible{ outline:2px solid var(--coral); outline-offset:2px; }
   .chip[aria-checked="true"]{
-    background:var(--plum-soft);
-    border-color:var(--plum);
-    color:var(--plum);
-    font-weight:500;
+    background:var(--coral-soft);
+    border-color:var(--coral);
+    color:var(--coral);
+    font-weight:600;
   }
 
   /* Contact fields */
@@ -179,14 +261,14 @@
     font-size:15px;
     padding:11px 13px;
     border:1px solid var(--line);
-    border-radius:8px;
+    border-radius:9px;
     background:var(--white);
     color:var(--ink);
   }
   input:focus{
     outline:none;
-    border-color:var(--sage-mid);
-    box-shadow:0 0 0 3px var(--sage-pale);
+    border-color:var(--teal-mid);
+    box-shadow:0 0 0 3px var(--teal-pale);
   }
 
   .autofill-btn{
@@ -195,7 +277,7 @@
     gap:6px;
     background:none;
     border:none;
-    color:var(--sage-deep);
+    color:var(--teal-deep);
     font-family:inherit;
     font-size:13px;
     font-weight:500;
@@ -207,41 +289,77 @@
 
   .submit-btn{
     width:100%;
-    background:var(--sage-deep);
+    background:var(--teal-deep);
     color:var(--white);
     font-family:inherit;
     font-size:15.5px;
-    font-weight:500;
+    font-weight:600;
     border:none;
-    border-radius:9px;
+    border-radius:10px;
     padding:14px;
     cursor:pointer;
-    transition:background 0.15s ease, opacity 0.15s ease;
+    transition:background 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
   }
   .submit-btn:disabled{
     background:var(--ink-soft);
-    opacity:0.4;
+    opacity:0.35;
     cursor:not-allowed;
   }
-  .submit-btn:not(:disabled):hover{ background:var(--sage-mid); }
+  .submit-btn:not(:disabled):hover{ background:var(--coral); }
+  .submit-btn:not(:disabled):active{ transform:scale(0.98); }
 
   .error{
     font-size:13px;
-    color:var(--plum);
+    color:var(--coral);
     margin-top:-8px;
     margin-bottom:14px;
     display:none;
   }
   .error.visible{ display:block; }
 
+  .trust-row{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin:20px 0 0;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+  }
+  .trust-item{
+    text-align:center;
+    flex:1;
+  }
+  .trust-item .num{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--teal-deep);
+  }
+  .trust-item .lbl{
+    font-size:10.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+
   /* Thank you state */
   .thanks{
     display:none;
     text-align:center;
-    padding:20px 0 6px;
+    padding:36px 26px 34px;
   }
   .thanks.visible{ display:block; }
-  .thanks svg{ width:48px; height:48px; margin-bottom:14px; }
+  .thanks .paw-icon{
+    width:56px;
+    height:56px;
+    margin:0 auto 14px;
+    border-radius:50%;
+    background:var(--teal-pale);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+  }
   .thanks h2{
     font-family:'Fraunces', serif;
     font-weight:500;
@@ -260,7 +378,7 @@
     font-family:inherit;
     font-size:13.5px;
     padding:10px 18px;
-    border-radius:8px;
+    border-radius:9px;
     cursor:pointer;
   }
 
@@ -273,57 +391,81 @@
 <div class="card">
 
   <div class="form-body" id="formBody">
-    <div class="brand">
-      <div class="brand-name" id="brandName">Silicon City Pet Hospital</div>
-    </div>
-    <h1>How was your visit today?</h1>
-    <p class="sub">Tap a star to get started — it takes 20 seconds.</p>
 
-    <div class="stars" id="starRow" role="radiogroup" aria-label="Rate your visit from 1 to 5 stars">
-      <!-- star buttons injected by JS -->
-    </div>
-    <div class="rating-label" id="ratingLabel">&nbsp;</div>
-
-    <!-- Ratings 1-2: single "not working" group -->
-    <div class="group" id="groupNotWorking">
-      <div class="group-title">What didn't work for you?</div>
-      <div class="chips" id="chipsNotWorking" role="radiogroup"></div>
-    </div>
-
-    <!-- Ratings 3-5: liked group -->
-    <div class="group" id="groupLiked">
-      <div class="group-title">What did you enjoy?</div>
-      <div class="chips" id="chipsLiked" role="radiogroup"></div>
-    </div>
-
-    <!-- Ratings 3-5: improve group -->
-    <div class="group" id="groupImprove">
-      <div class="group-title">Anything we could improve? <span class="opt">(optional)</span></div>
-      <div class="chips" id="chipsImprove" role="radiogroup"></div>
-    </div>
-
-    <div class="fields" id="contactFields">
-      <button type="button" class="autofill-btn hidden" id="autofillBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Fill from my contact card
-      </button>
-      <div class="field">
-        <label for="nameInput">Your name</label>
-        <input type="text" id="nameInput" autocomplete="name" placeholder="Full name">
+    <div class="banner-wrap">
+      <img class="banner-img" id="bannerImg" src="https://www.siliconcitypethospital.com/assets/images/hero-veterinarian-corgi.jpg" alt="Veterinarian caring for a dog">
+      <div class="banner-overlay"></div>
+      <div class="emergency-pill"><span class="dot"></span>24/7 Emergency</div>
+      <div class="logo-badge">
+        <img id="logoImg" src="https://www.siliconcitypethospital.com/assets/images/logo.jpg" alt="Silicon City Pet Hospital logo">
       </div>
-      <div class="field">
-        <label for="phoneInput">Phone number</label>
-        <input type="tel" id="phoneInput" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile number">
+    </div>
+
+    <div class="content">
+      <div class="brand">
+        <div class="brand-name" id="brandName">Silicon City Pet Hospital</div>
+        <div class="brand-tag">Leading the way in pet care</div>
       </div>
-      <div class="error" id="errorMsg">Please fill in your name, phone number, and the option above.</div>
-      <button type="button" class="submit-btn" id="submitBtn" disabled>Submit feedback</button>
+
+      <h1>How was your pet's visit today?</h1>
+      <p class="sub"><span class="paw">🐾</span> Tap a star to get started — it takes 20 seconds.</p>
+
+      <div class="stars" id="starRow" role="radiogroup" aria-label="Rate your visit from 1 to 5 stars">
+        <!-- star buttons injected by JS -->
+      </div>
+      <div class="rating-label" id="ratingLabel">&nbsp;</div>
+
+      <!-- Ratings 1-2: single "not working" group -->
+      <div class="group" id="groupNotWorking">
+        <div class="group-title">What didn't work for you?</div>
+        <div class="chips" id="chipsNotWorking" role="radiogroup"></div>
+      </div>
+
+      <!-- Ratings 3-5: liked group -->
+      <div class="group" id="groupLiked">
+        <div class="group-title">What did you enjoy?</div>
+        <div class="chips" id="chipsLiked" role="radiogroup"></div>
+      </div>
+
+      <!-- Ratings 3-5: improve group -->
+      <div class="group" id="groupImprove">
+        <div class="group-title">Anything we could improve? <span class="opt">(optional)</span></div>
+        <div class="chips" id="chipsImprove" role="radiogroup"></div>
+      </div>
+
+      <div class="fields" id="contactFields">
+        <button type="button" class="autofill-btn hidden" id="autofillBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Fill from my contact card
+        </button>
+        <div class="field">
+          <label for="nameInput">Your name</label>
+          <input type="text" id="nameInput" autocomplete="name" placeholder="Full name">
+        </div>
+        <div class="field">
+          <label for="petNameInput">Your pet's name <span class="opt">(optional)</span></label>
+          <input type="text" id="petNameInput" autocomplete="off" placeholder="e.g. Bruno">
+        </div>
+        <div class="field">
+          <label for="phoneInput">Phone number</label>
+          <input type="tel" id="phoneInput" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile number">
+        </div>
+        <div class="error" id="errorMsg">Please fill in your name, phone number, and the option above.</div>
+        <button type="button" class="submit-btn" id="submitBtn" disabled>Submit feedback</button>
+
+        <div class="trust-row">
+          <div class="trust-item"><div class="num">10+</div><div class="lbl">Years</div></div>
+          <div class="trust-item"><div class="num">5000+</div><div class="lbl">Happy Pets</div></div>
+          <div class="trust-item"><div class="num">24/7</div><div class="lbl">Emergency</div></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="thanks" id="thanksScreen">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#3F5647" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+    <div class="paw-icon">🐾</div>
     <h2>Thank you!</h2>
-    <p>Your feedback has been recorded. We really appreciate you taking the time.</p>
+    <p>Your feedback has been recorded. We really appreciate you and your pet taking the time.</p>
     <button type="button" class="again-btn" id="againBtn">Leave another response</button>
   </div>
 
@@ -337,6 +479,10 @@
 const CONFIG = {
   businessName: "Silicon City Pet Hospital",
 
+  // Header images — swap these URLs for your own hosted images any time.
+  bannerImageUrl: "https://www.siliconcitypethospital.com/assets/images/hero-veterinarian-corgi.jpg",
+  logoImageUrl: "https://www.siliconcitypethospital.com/assets/images/logo.jpg",
+
   // Paste your Google Apps Script Web App URL here after setup
   // (see the setup steps provided alongside this file).
   webAppUrl: "https://script.google.com/macros/s/AKfycbzpy2iz0YH-XLBUPUQQ_trh2VV7YnFHFarcKoHr6Mzek_YZNtG34A0px3Bx4Kdou7Of/exec",
@@ -344,17 +490,17 @@ const CONFIG = {
   // Shown for 1 and 2 star ratings. Pick exactly one.
   notWorkingOptions: [
     "Long wait time",
-    "Staff behavior or attitude",
+    "Staff behavior with my pet",
     "Cleanliness or hygiene",
-    "Service didn't meet expectations",
+    "Diagnosis / treatment concerns",
     "Pricing / value for money"
   ],
 
   // Shown for 3, 4 and 5 star ratings. Pick exactly one.
   likedOptions: [
-    "Friendly, professional staff",
-    "Skilled service, great results",
-    "Clean and relaxing ambience",
+    "Caring, professional staff",
+    "Skilled veterinary care",
+    "Clean, comfortable facility",
     "On-time appointment",
     "Good value for the price"
   ],
@@ -362,15 +508,21 @@ const CONFIG = {
   // Shown for 3, 4 and 5 star ratings. Optional.
   improveOptions: [
     "Wait time",
-    "Staff attentiveness",
+    "Staff communication",
     "Cleanliness",
-    "Service outcome",
+    "Treatment explanation",
     "Pricing"
   ]
 };
 /* ========================================================= */
 
 document.getElementById('brandName').textContent = CONFIG.businessName;
+document.getElementById('bannerImg').src = CONFIG.bannerImageUrl;
+document.getElementById('logoImg').src = CONFIG.logoImageUrl;
+
+// If an image fails to load (e.g. offline or URL changed), hide it gracefully
+document.getElementById('bannerImg').addEventListener('error', function(){ this.closest('.banner-wrap').style.display = 'none'; });
+document.getElementById('logoImg').addEventListener('error', function(){ this.closest('.logo-badge').style.display = 'none'; });
 
 const state = { rating: 0, notWorking: null, liked: null, improve: null };
 
@@ -390,7 +542,13 @@ for(let i=1;i<=5;i++){
   starRow.appendChild(btn);
 }
 
-const ratingLabels = {1:"Not great — sorry to hear that", 2:"Below expectations", 3:"It was okay", 4:"Good visit", 5:"Loved it!"};
+const ratingLabels = {
+  1:"We're sorry your visit wasn't great",
+  2:"Below expectations",
+  3:"It was okay",
+  4:"A good visit",
+  5:"Loved it! 🐾"
+};
 
 function setRating(n){
   state.rating = n;
@@ -441,6 +599,7 @@ function renderChips(containerId, options, stateKey){
 
 // --- Contact fields ---
 const nameInput = document.getElementById('nameInput');
+const petNameInput = document.getElementById('petNameInput');
 const phoneInput = document.getElementById('phoneInput');
 nameInput.addEventListener('input', validate);
 phoneInput.addEventListener('input', validate);
@@ -473,6 +632,7 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
   const payload = {
     timestamp: new Date().toISOString(),
     name: nameInput.value.trim(),
+    petName: petNameInput.value.trim(),
     phone: phoneInput.value.trim(),
     rating: state.rating,
     notWorking: state.notWorking || '',
@@ -504,7 +664,7 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
 
 document.getElementById('againBtn').addEventListener('click', ()=>{
   state.rating = 0; state.notWorking=null; state.liked=null; state.improve=null;
-  nameInput.value=''; phoneInput.value='';
+  nameInput.value=''; petNameInput.value=''; phoneInput.value='';
   [...starRow.children].forEach(b=>{b.classList.remove('filled'); b.setAttribute('aria-checked','false');});
   document.getElementById('ratingLabel').textContent = '\u00A0';
   document.getElementById('groupNotWorking').classList.remove('visible');
